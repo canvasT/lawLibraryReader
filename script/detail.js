@@ -28,9 +28,9 @@ window.MSA.Detail = MSA.Class({
     loadDetail: function(){
     	var that = this;
         sql.getDetailById(this.article.id).done(function(_res){
-            var pattern = /<body[^>]*>((.|[\n\r])*)<\/body>/im
-            var array_matches = pattern.exec(_res['content']);
-            var html = '<div class="doc-date">颁布日期：' + (that.article['publish_date']|| '-') + '</div>'
+            var pattern = /<body[^>]*>((.|[\n\r])*)<\/body>/im;
+            var array_matches = pattern.exec(_res['content'] || _res['markdown_html']);
+            var html = '<div class="doc-date">颁布日期：' + (that.article['publish_date']|| '-') + '</div>';
             that.$appContent.html(html + array_matches[1]);
         });
     }

@@ -29,25 +29,32 @@
 	padding-right: 40px;
 }
 
+.app-content>div {
+	max-width: 100%;
+}
+
 .app-topbar .app-button-icon {
 	padding: 0;
 	width: 44px;
 }
 
-.app-topbar .app-title {
-	width: auto;
-	padding: 0 88px;
+.app-android .app-topbar .app-title, .app-topbar .app-title {
+	width: 50%;
+	padding: 0 25%;
+	text-align: center;
 }
 
 .app-topbar.detail-topbar .app-title {
-	padding: 0 44px;
+	/*padding: 0 44px;*/
+	width: 70%;
+	padding: 0 15%;
 }
 /*
 .app-topbar .button-back {
 
 }*/
 
-.app-topbar .app-button[data-back].left {
+.app-android .app-topbar .app-button[data-back].left, .app-topbar .app-button[data-back].left {
 	padding: 0;
 	width: 44px;
 	height: 44px;
@@ -266,4 +273,8 @@
 	margin-bottom: 16px;
 	font-size: 12px;
 	color: #999;
+}
+
+.app-android .app-topbar .app-button {
+	padding: 0;
 }
