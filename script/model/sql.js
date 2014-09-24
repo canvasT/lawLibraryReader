@@ -23,6 +23,7 @@
     function fetchCategorys(_callback){
         $.ajax({
             url:'http://www.nbmsa.gov.cn/api/law_documents/categories/',
+            dataType: 'jsonp',
             success : function(_result){
             	var documentCount = 0;
             	var mix = function(_val){
@@ -75,39 +76,43 @@
         };
         
         //no hit
-        $.getJSON('http://www.nbmsa.gov.cn/api/law_documents/documents/',data,function(_res){
-            var ley = 'documents'+data.cat;
-            var mixed = $.map(_res,function(_val, _index, _this){
-	                	return {
-	                		id : _val.id,
-	                		title : _val.title,
-	                		category : _val.category
-	                	}
-	                });
-            _callback({key:ley,data:mixed});
-            //
-            documentStore.get(ley,function(older){
+        $.ajax({
+            url: 'http://www.nbmsa.gov.cn/api/law_documents/documents/',
+            data: data,
+            dataType: 'jsonp',
+            success: function(_res){
+                var ley = 'documents'+data.cat;
+                var mixed = $.map(_res,function(_val, _index, _this){
+                            return {
+                                id : _val.id,
+                                title : _val.title,
+                                category : _val.category,
+                                publish_date: _val.publish_date
+                            }
+                        });
+                _callback({key:ley,data:mixed});
                 //
-                if(older && older.data){
-                    var newer = older;
-                }else{
-                    var newer = {key:ley,data:[]};
-                }
-                for(var i= 0, l = mixed.length; i<l; i++){
-                    var artice = mixed[i];
-                    newer.data[data.start+i] = artice;
-                }
-                try{
-                    //TODO strip unused properties
-                    documentStore.save(newer);
-                }catch(e){
-                    alert('数据离线失败');
-                }
-                
-            })
+                documentStore.get(ley,function(older){
+                    //
+                    if(older && older.data){
+                        var newer = older;
+                    }else{
+                        var newer = {key:ley,data:[]};
+                    }
+                    for(var i= 0, l = mixed.length; i<l; i++){
+                        var artice = mixed[i];
+                        newer.data[data.start+i] = artice;
+                    }
+                    try{
+                        //TODO strip unused properties
+                        documentStore.save(newer);
+                    }catch(e){
+                        alert('数据离线失败');
+                    }
+                    
+                })
+            }
         });
-            
-        
     }
     // search
     function searchDocuments(_param, _callback){
@@ -118,14 +123,14 @@
         if(_param.keyword){
             data.keyword = _param.keyword;
         }
-        $.getJSON(
-            'http://www.nbmsa.gov.cn/api/law_documents/search/',
-            data,
-            function(_res){
+        $.ajax({
+            url: 'http://www.nbmsa.gov.cn/api/law_documents/search/',
+            data: data,
+            dataType: 'jsonp',
+            success: function(_res){
                 _callback(_res);
             }
-        );
-        //TODO  search in cache
+        });
     };
 
     function offlineSearch(_param, _callback){
@@ -167,11 +172,11 @@
         return def;
     }
     function getHTMLById(_id, _callback){
-        
-        $.getJSON(
-            'http://www.nbmsa.gov.cn/api/law_documents/document/'+_id+'/',
-            {},
-            function(_res){
+        $.ajax({
+            url: 'http://www.nbmsa.gov.cn/api/law_documents/document/'+_id+'/',
+            data: {},
+            dataType: 'jsonp',
+            success: function(_res){
                 try{
                     var val = {
                         key : ''+_id,
@@ -184,12 +189,13 @@
                     alert('数据离线失败');
                 }
             }
-        );
+        });
     }
 // fetch detail by document id
     function fetchDetails(_param,_callback){
         $.ajax({
             url:'http://www.nbmsa.gov.cn/api/law_documents/offline/',
+            dataType: 'jsonp',
             data :{
                 start : parseInt(_param.start,10) || 0,
                 num : parseInt(_param.num,10) || 20

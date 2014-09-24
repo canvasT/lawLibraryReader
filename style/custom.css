@@ -49,10 +49,10 @@
 	width: 70%;
 	padding: 0 15%;
 }
-/*
-.app-topbar .button-back {
 
-}*/
+.app-scrollable>div {
+	max-width: 100%;
+}
 
 .app-android .app-topbar .app-button[data-back].left, .app-topbar .app-button[data-back].left {
 	padding: 0;
@@ -129,13 +129,21 @@
 	left: 240px;
 }
 
-.menu {
+.menu-cont {
 	height: 100%;
 	width: 240px;
 	position: absolute;
 	left: 0;
 	top:0;
 	overflow-y:auto;
+}
+
+.menu {
+	height: 100%;
+	width: 100%;
+	position: relative;
+	left: 0;
+	top:0;
 }
 
 .button-menu {
