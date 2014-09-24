@@ -23,7 +23,7 @@
     function fetchCategorys(_callback){
         $.ajax({
             url:'http://www.nbmsa.gov.cn/api/law_documents/categories/',
-            dataType: 'jsonp',
+            // dataType: 'jsonp',
             success : function(_result){
             	var documentCount = 0;
             	var mix = function(_val){
@@ -79,7 +79,7 @@
         $.ajax({
             url: 'http://www.nbmsa.gov.cn/api/law_documents/documents/',
             data: data,
-            dataType: 'jsonp',
+            // dataType: 'jsonp',
             success: function(_res){
                 var ley = 'documents'+data.cat;
                 var mixed = $.map(_res,function(_val, _index, _this){
@@ -126,7 +126,7 @@
         $.ajax({
             url: 'http://www.nbmsa.gov.cn/api/law_documents/search/',
             data: data,
-            dataType: 'jsonp',
+            // dataType: 'jsonp',
             success: function(_res){
                 _callback(_res);
             }
@@ -175,7 +175,7 @@
         $.ajax({
             url: 'http://www.nbmsa.gov.cn/api/law_documents/document/'+_id+'/',
             data: {},
-            dataType: 'jsonp',
+            // dataType: 'jsonp',
             success: function(_res){
                 try{
                     var val = {
@@ -195,7 +195,7 @@
     function fetchDetails(_param,_callback){
         $.ajax({
             url:'http://www.nbmsa.gov.cn/api/law_documents/offline/',
-            dataType: 'jsonp',
+            // dataType: 'jsonp',
             data :{
                 start : parseInt(_param.start,10) || 0,
                 num : parseInt(_param.num,10) || 20
