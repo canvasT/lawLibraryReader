@@ -18,7 +18,7 @@ module.exports = function(grunt) {
     open : {
       dev : {
         path: 'http://127.0.0.1:8080/',
-        app: 'Chrome',
+        app: 'Google Chrome',
         options:{
           delay : 2 
         }
